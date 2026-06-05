@@ -60,14 +60,14 @@ nav {
   border-bottom: 0.5px solid rgba(196,180,154,0.25);
 }
 .logo {
-  font-family: 'Array', sans-serif;
-  font-size: clamp(16px, 3.75vw, 48px);
-  font-weight: 600;
+  font-family: 'Chillax', sans-serif;
+  font-size: clamp(15px, 1.4vw, 22px);
+  font-weight: 200;
   color: var(--ink);
   cursor: pointer;
   text-decoration: none;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  text-transform: none;
 }
 
 /* HAMBURGER */
@@ -262,8 +262,13 @@ nav {
   background: var(--bg);
   overflow-y: auto;
   padding: 80px 60px 80px;
+  opacity: 0;
+  transition: opacity 0.22s ease;
 }
-.overlay.open { display: block; }
+.overlay.open {
+  opacity: 1;
+}
+.overlay.open { display: block; pointer-events: auto; }
 
 
 .overlay-close {
@@ -287,7 +292,7 @@ nav {
 .overlay-num { font-size: 11px; font-style: italic; color: #bbb; margin-bottom: 8px; }
 .overlay-title {
   font-family: 'Chillax', sans-serif;
-  font-weight: 300;
+  font-weight: 200;
   font-size: clamp(26px, 4.5vw, 48px);
   font-style: normal;
   line-height: 1.08;
@@ -300,7 +305,7 @@ nav {
   border-left: 1.5px solid #ddd;
   padding-left: 16px;
   font-size: 13px; letter-spacing: 0.02em;
-  color: #888; line-height: 2; margin-bottom: 28px;
+  color: #888; line-height: 2.2; margin-bottom: 48px;
 }
 .overlay-desc {
   font-family: 'Chillax', sans-serif;
@@ -730,7 +735,7 @@ footer span:first-child { font-style: italic; }
   position: fixed;
   inset: 0;
   z-index: 900;
-  background: #f0ebe0;
+  background: #111;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -760,24 +765,38 @@ footer span:first-child { font-style: italic; }
   background: linear-gradient(to top, rgba(240,235,224,0.75) 0%, transparent 60%);
 }
 .splash-name {
-  font-family: 'Array', sans-serif;
-  font-weight: 600;
-  font-size: clamp(16px, 3.75vw, 48px);
+  font-family: 'Chillax', sans-serif;
+  font-weight: 200;
+  font-size: clamp(36px, 7vw, 96px);
   line-height: 1.0;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #1a1610;
+  letter-spacing: -0.02em;
+  color: #f0ebe0;
   position: relative;
   z-index: 2;
-  margin-bottom: 16px;
+  margin-bottom: 6px;
+}
+.splash-discipline {
+  font-family: 'Array', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240,235,224,0.45);
+  position: relative;
+  z-index: 2;
+}
+.splash-bottom {
+  position: relative;
+  z-index: 2;
 }
 .splash-lang {
+  position: absolute;
+  top: 44px;
+  right: 44px;
   display: flex;
   align-items: center;
   gap: 0;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 18px;
+  z-index: 10;
 }
 .splash-lang button {
   background: none;
@@ -856,9 +875,9 @@ footer span:first-child { font-style: italic; }
 /* The orifice is roughly at 60% from left, 44% from top in the image */
 .splash-circle-btn {
   position: absolute;
-  left: 60%; top: 42%;
+  left: 52%; top: 47%;
   transform: translate(-50%, -50%);
-  width: 220px; height: 220px;
+  width: 200px; height: 200px;
   border-radius: 50%;
   background: transparent;
   border: none;
@@ -1021,20 +1040,21 @@ footer span:first-child { font-style: italic; }
   font-size: 11px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(40,35,28,0.35);
+  color: rgba(240,235,224,0.35);
   cursor: pointer;
   padding: 0;
   transition: color 0.2s;
 }
 .splash-lang button.active {
-  color: rgba(40,35,28,0.85);
+  color: rgba(240,235,224,0.9);
 }
-.splash-lang button:hover { color: rgba(40,35,28,0.85); }
+.splash-lang button:hover { color: rgba(240,235,224,0.9); }
 .lang-sep {
   font-family: 'Array', sans-serif;
   font-size: 11px;
-  color: rgba(40,35,28,0.25);
-  letter-spacing: 0;
+  color: rgba(240,235,224,0.2);
+  letter-spacing: 0.1em;
+  padding: 0 4px;
 }
 
 /* BUY BUTTON */
@@ -1073,19 +1093,58 @@ footer span:first-child { font-style: italic; }
 .manam-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .manam-pair img { width: 100%; height: auto; display: block; cursor: zoom-in; opacity: 0.95; transition: opacity 0.3s; }
 .manam-full img:hover, .manam-pair img:hover { opacity: 1; }
+
+/* WORK LIST HOVER THUMBNAIL */
+.wi-thumb-preview {
+  position: fixed;
+  pointer-events: none;
+  z-index: 500;
+  width: 220px;
+  height: 148px;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  display: none;
+}
+.wi-thumb-preview.visible {
+  opacity: 1;
+  display: block;
+}
+
+/* CONTACT REDESIGN */
+.contact-intro {
+  font-family: 'Chillax', sans-serif;
+  font-weight: 300;
+  font-size: clamp(18px, 2.5vw, 28px);
+  line-height: 1.5;
+  color: var(--ink);
+  margin-bottom: 48px;
+  max-width: 520px;
+}
+.contact-email-big {
+  display: block;
+  font-family: 'Chillax', sans-serif;
+  font-weight: 200;
+  font-size: clamp(14px, 2vw, 22px);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  margin-bottom: 32px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.contact-email-big:hover { opacity: 1; }
 </style>
 </head>
 <body>
 
 <div id="bgVideo"></div>
 
-<div id="splash">
+<div id="splash" onclick="enterSite()">
   <video class="splash-bg" id="splashBg" autoplay muted loop playsinline><source src="Huaca.mp4" type="video/mp4"></video>
   <div class="splash-fade"></div>
-  <!-- Hamburger on splash -->
-  <button class="splash-menu-btn" onclick="enterSite()" id="splashMenuBtn">
-    <span></span><span></span><span></span>
-  </button>
+
   <!-- Invisible circle button over the central orifice of the huaca -->
   <button class="splash-circle-btn" onclick="goPozo()" aria-label="Pozo"></button>
   <div class="splash-lang" id="splashLang">
@@ -1093,9 +1152,12 @@ footer span:first-child { font-style: italic; }
     <span class="lang-sep"> | </span>
     <button id="splash-btn-en" onclick="setSplashLang('en')">EN</button>
   </div>
-  <div class="splash-name">Davis Pérez</div>
+  <div class="splash-bottom">
+    <div class="splash-name">Davis Pérez</div>
+  </div>
 </div>
 
+<img id="wiThumbPreview" class="wi-thumb-preview" src="" alt="">
 <nav>
   <a class="logo" onclick="logoClick()">Davis Pérez</a>
   <button class="menu-trigger" onclick="toggleMenu()" id="menuTrigger">
@@ -1225,9 +1287,9 @@ footer span:first-child { font-style: italic; }
 <!-- CONTACT -->
 <div id="page-contact" class="page">
   <p class="page-label">Contact</p>
-  <p class="contact-email">davisperezrodriguez@gmail.com</p>
-  <p class="contact-sub">Available for projects, residencies and collaborations</p>
-  <a href="mailto:davisperezrodriguez@gmail.com" class="contact-btn">Send a message →</a>
+  <p class="contact-intro">Disponible para residencias,<br>colaboraciones y proyectos en proceso.</p>
+  <a href="mailto:davisperezrodriguez@gmail.com" class="contact-email-big">davisperezrodriguez@gmail.com</a>
+  <a href="mailto:davisperezrodriguez@gmail.com" class="contact-btn">Escribir →</a>
   <div class="contact-links">
     <a href="https://vimeo.com/davisperez" target="_blank" class="contact-link">Vimeo</a>
     <a href="https://www.instagram.com/quieroserartistamipais" target="_blank" class="contact-link">Instagram</a>
@@ -1254,7 +1316,7 @@ footer span:first-child { font-style: italic; }
 
 <script>
 var WORKS = [
-  {n:'*',title:'Manam Quechua',type:'Documental',year:'2026',badge:'wip',imgs:['https://davisperezrodriguez-bit.github.io/portafolio/manam_01_velas.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_02_retrato.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_03_llamas.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_04_procesion.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_05_caballo_a.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_06_caballo_b.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_07_tejedor.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_08_violines.jpg'],
+  {n:'*',title:'Manam Quechua',type:'Documental',layout:'manam',year:'2026',badge:'wip',imgs:['https://davisperezrodriguez-bit.github.io/portafolio/manam_01_velas.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_02_retrato.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_03_llamas.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_04_procesion.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_05_caballo_a.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_06_caballo_b.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_07_tejedor.jpg','https://davisperezrodriguez-bit.github.io/portafolio/manam_08_violines.jpg'],
    ficha:'Documental en curso · Ayacucho, Perú · 2025–2026',
    desc:'Documental realizado en la ciudad de Ayacucho. Un registro en curso de la vida, el ritual y la memoria colectiva de sus pueblos.',ficha_en:'Documentary in progress · Ayacucho, Peru · 2025–2026',desc_en:'An ongoing documentary made in the city of Ayacucho. A living record of the life, ritual, and collective memory of its peoples.'},
   {n:'—',title:'Gran Pollada Pro-Artista',type:'Dibujo',year:'2024',badge:'dibujo',
@@ -1431,11 +1493,24 @@ function openWork(w) {
   }
   // Multiple images (imgs array)
   if (w.imgs && w.imgs.length) {
-    imgHtml = '<div class="obra-gallery">';
-    w.imgs.forEach(function(src, i) {
-      imgHtml += '<img src="' + src + '" alt="' + w.title + ' ' + (i+1) + '" loading="lazy" onclick="window.open(this.src,\'_blank\')">'; 
-    });
-    imgHtml += '</div>';
+    if (w.layout === 'manam') {
+      var im = w.imgs;
+      var mk = function(s) { return '<img src="' + s + '" alt="' + w.title + '" loading="lazy" onclick="window.open(this.src,\'_blank\')" >'; };
+      imgHtml = '<div class="manam-layout">' +
+        '<div class="manam-full">'  + mk(im[0]) + '</div>' +
+        '<div class="manam-pair">'  + mk(im[3]) + mk(im[2]) + '</div>' +
+        '<div class="manam-full">'  + mk(im[1]) + '</div>' +
+        '<div class="manam-pair">'  + mk(im[5]) + mk(im[6]) + '</div>' +
+        '<div class="manam-full">'  + mk(im[4]) + '</div>' +
+        '<div class="manam-full">'  + mk(im[7]) + '</div>' +
+        '</div>';
+    } else {
+      imgHtml = '<div class="obra-gallery">';
+      w.imgs.forEach(function(src, i) {
+        imgHtml += '<img src="' + src + '" alt="' + w.title + ' ' + (i+1) + '" loading="lazy" onclick="window.open(this.src,\'_blank\')">'; 
+      });
+      imgHtml += '</div>';
+    }
   }
   // Vimeo/YouTube preview embed
   var videoPreview = '';
@@ -1478,7 +1553,12 @@ function openWork(w) {
     imgHtml + videoPreview +
     desc + collab + btn + nav;
   currentOpenWork = WORKS.indexOf(w);
-  document.getElementById('overlay').classList.add('open');
+  var ov = document.getElementById('overlay');
+  ov.style.opacity = '0';
+  ov.classList.add('open');
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { ov.style.opacity = '1'; });
+  });
   document.body.style.overflow = 'hidden';
 }
 
