@@ -201,7 +201,7 @@ nav {
 
 .work-item {
   display: grid;
-  grid-template-columns: 28px 1fr auto auto auto;
+  grid-template-columns: 28px 1fr auto auto;
   gap: 0 20px;
   align-items: baseline;
   padding: 14px 0;
@@ -230,21 +230,7 @@ nav {
 }
 .wi-type { display: none; }
 .wi-year { font-size: 11px; color: #bbb; }
-.wi-lang {
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-family: 'Array', sans-serif;
-  color: #aaa;
-  border: 0.5px solid rgba(196,180,154,0.4);
-  padding: 2px 6px;
-  cursor: pointer;
-  background: none;
-  transition: color 0.2s, border-color 0.2s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.wi-lang:hover { color: var(--gold); border-color: var(--gold); }
+
 
 .badge {
   display: inline-block;
@@ -1313,11 +1299,7 @@ function setSplashLang(lang) {
   currentLang = lang;
   document.getElementById('splash-btn-es').classList.toggle('active', lang === 'es');
   document.getElementById('splash-btn-en').classList.toggle('active', lang === 'en');
-  // Hide EN buttons in list when already in EN; show when in ES
-  document.querySelectorAll('.wi-lang').forEach(function(btn) {
-    btn.style.display = (lang === 'en') ? 'none' : '';
-    btn.textContent = 'EN';
-  });
+
 }
 
 function enterSite() {
@@ -1354,13 +1336,8 @@ WORKS.forEach(function(w) {
     '<span class="wi-title">' + w.title + badge + '</span>' +
     '<span class="wi-type">' + w.type + '</span>' +
     '<span class="wi-year">' + w.year + '</span>' +
-    ((w.desc_en) ? '<button class="wi-lang" data-lang="en">EN</button>' : '');
-  el.querySelector('.wi-lang') && el.querySelector('.wi-lang').addEventListener('click', function(e) {
-    e.stopPropagation();
-    currentLang = 'en';
-    openWork(w);
-  });
-  el.onclick = function() { currentLang = 'es'; openWork(w); };
+    '';
+  el.onclick = function() { openWork(w); };
   list.appendChild(el);
 });
 
