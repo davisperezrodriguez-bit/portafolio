@@ -1036,6 +1036,35 @@ footer span:first-child { font-style: italic; }
   color: rgba(40,35,28,0.25);
   letter-spacing: 0;
 }
+
+/* BUY BUTTON */
+.overlay-buy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Array', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 0.5px solid rgba(40,35,28,0.35);
+  padding: 5px 12px;
+  cursor: pointer;
+  background: none;
+  text-decoration: none;
+  margin-left: 14px;
+  vertical-align: middle;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.overlay-buy:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.overlay-buy svg {
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -1435,7 +1464,9 @@ function openWork(w) {
   document.getElementById('overlay-inner').innerHTML =
     '<p class="overlay-num">' + w.n + ' / ' + WORKS.length + '</p>' +
     '<h2 class="overlay-title">' + w.title + '</h2>' +
-    '<div class="overlay-ficha">' + fichaText + '</div>' +
+    '<div class="overlay-ficha">' + fichaText +
+    (fichaText.match(/Ed\./) ? '<a class="overlay-buy" href="mailto:davisperezrodriguez@gmail.com?subject=Consulta%20de%20compra%3A%20' + encodeURIComponent(w.title) + '&body=Hola%20Davis%2C%0A%0AMe%20interesa%20adquirir%20la%20obra%20%22' + encodeURIComponent(w.title) + '%22.%0A%0A" target="_blank"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5.5h9M6 1.5l4 4-4 4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>Adquirir</a>' : '') +
+    '</div>' +
     imgHtml + videoPreview +
     desc + collab + btn + nav;
   currentOpenWork = WORKS.indexOf(w);
