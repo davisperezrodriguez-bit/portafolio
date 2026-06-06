@@ -1522,7 +1522,9 @@ function show(name) {
   document.querySelectorAll('.page').forEach(function(p) {
     p.classList.remove('active');
   });
-  document.querySelectorAll(');
+  document.querySelectorAll('.nav-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
   document.getElementById('page-' + name).classList.add('active');
   var btn = document.getElementById('btn-' + name);
   if (btn) btn.classList.add('active');
@@ -1781,7 +1783,7 @@ function goSplash() {
   var splash = document.getElementById('splash');
   splash.style.display = 'flex';
   splash.classList.remove('hide');
-  document.querySelectorAll(');
+  document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
 }
 
 function openCenteredMenu() {
