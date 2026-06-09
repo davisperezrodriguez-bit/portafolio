@@ -981,6 +981,14 @@ footer span:first-child { font-style: italic; }
   margin: 28px 0;
   background: #0a0a09;
 }
+.obra-video-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  aspect-ratio: 16 / 9;
+  margin: 28px 0;
+  background: #0a0a09;
+}
 .obra-video-wrap iframe {
   position: absolute;
   inset: 0;
@@ -1241,7 +1249,7 @@ footer span:first-child { font-style: italic; }
   border: none;
   font-family: 'Chillax', sans-serif;
   font-weight: 200;
-  font-size: clamp(32px, 5.3vw, 73px);
+  font-size: clamp(26px, 4.2vw, 58px);
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -1652,9 +1660,6 @@ function openWork(w) {
   var desc = descText.split('\\n\\n').filter(function(p) { return p.trim(); })
     .map(function(p) { return '<p class="overlay-desc">' + p + '</p>'; }).join('');
   var collab = w.collab ? '<p class="overlay-collab">' + w.collab + '</p>' : '';
-  var btn = w.link
-    ? '<a href="' + w.link + '" target="_blank" class="overlay-btn">&#9654;&nbsp; Ver ' + (w.badge === 'film' ? 'film' : 'video') + '</a>'
-    : '';
   var nav = '<div class="overlay-nav">' +
     '<button class="btn-back" onclick="closeOverlay()">work</button>' +
     '<button onclick="closeOverlay();show(\'bio\')">bio</button>' +
@@ -1784,22 +1789,10 @@ function openWork(w) {
       if (ytId) embedUrl = 'https://www.youtube.com/embed/' + ytId + '?rel=0';
     }
     if (embedUrl) {
-      // Build clickable thumbnail instead of iframe (works offline/local)
-      var thumbId = '';
-      var thumbUrl = '';
-      if (w.link.indexOf('vimeo.com') !== -1) {
-        thumbId = w.link.split('/').pop().split('?')[0];
-        thumbUrl = 'https://vumbnail.com/' + thumbId + '.jpg';
-      } else if (w.link.indexOf('youtu') !== -1) {
-        thumbUrl = 'https://img.youtube.com/vi/' + (w.link.indexOf('youtu.be/') !== -1 ? w.link.split('youtu.be/')[1].split('?')[0] : w.link.split('v=')[1].split('&')[0]) + '/maxresdefault.jpg';
-      }
-      var playSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="rgba(255,255,255,0.7)" stroke-width="2"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>';
       videoPreview =
-        '<a class="obra-video-link" href="' + w.link + '" target="_blank" rel="noopener" title="Ver en Vimeo">' +
-          (thumbUrl ? '<img src="' + thumbUrl + '" alt="' + w.title + '" loading="lazy">' : '') +
-          '<span class="play-btn">' + playSvg + '</span>' +
-        '</a>' +
-        '<span class="obra-video-caption">Ver en Vimeo →</span>';
+        '<div class="obra-video-wrap">' +
+          '<iframe src="' + embedUrl + '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="' + w.title + '"></iframe>' +
+        '</div>';
     }
   }
   document.getElementById('overlay-inner').innerHTML =
@@ -1808,8 +1801,8 @@ function openWork(w) {
     '<div class="overlay-ficha">' + fichaText +
     (fichaText.match(/Ed\./) ? '<a class="overlay-buy" href="mailto:davisperezrodriguez@gmail.com?subject=Consulta%20de%20compra%3A%20' + encodeURIComponent(w.title) + '&body=Hola%20Davis%2C%0A%0AMe%20interesa%20adquirir%20la%20obra%20%22' + encodeURIComponent(w.title) + '%22.%0A%0A" target="_blank"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5.5h9M6 1.5l4 4-4 4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>Adquirir</a>' : '') +
     '</div>' +
-    imgHtml + videoPreview +
-    desc + collab + btn + nav;
+    imgHtml +
+    videoPreview + desc + collab + nav;
   currentOpenWork = WORKS.indexOf(w);
   // Restart overlay-title animation on every open
   var titleEl = document.querySelector('#overlay .overlay-title');
